@@ -18,7 +18,10 @@ Manager.getInstance().getTelematics().sendCommand(command, carSerial, new Telema
             }
             else if (command.is(Command.FailureMessage.FAILURE_MESSAGE)) {
                 Failure failure = (Failure) command;
-                Log.d(TAG, "Could not get state: " + failure.getFailureReason());
+                
+                if (failure.getFailedType() == Command.Diagnostics.GET_DIAGNOSTICS_STATE) {
+                    Log.d(TAG, "Could not get state: " + failure.getFailureReason());
+                }
             }
         }
         catch (CommandParseException e) {
